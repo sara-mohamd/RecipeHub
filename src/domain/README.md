@@ -7,13 +7,13 @@ This layer contains the core business logic and entities of the application.
 - `Recipe`: Represents a recipe with properties like `id`, `title`, `ingredients`, and `instructions`.
 
 ## Interfaces
-- `IUserRepository`: Defines the contract for user data access (e.g., `findByEmail`, `save`).
-
+- `IUserRepository.js`: Defines the contract for user data access ().
 ## DTO
-- standardize the response format across your application, using Data Transfer Object
-- A DTO is a simple object that defines the structure of the data being returned
+Data Transfer Object(DTO) standardize the response.
+- `userDTO.js` : format user structure being returned
 
-## <<< i should update it >>>
-## Business Rules
-- A user must have a valid email and a password of at least 6 characters.
-- A recipe must have a title and at least one ingredient.
+## Utils
+this folder contains **utility functions** or **helper modules** that are reusable.
+- `PasswordHasher.js`: For hashing and comparing passwords.
+- `TokenGenerator.js`: For generating and validating tokens.
+- `EmailValidator.js`: For validating email addresses.
