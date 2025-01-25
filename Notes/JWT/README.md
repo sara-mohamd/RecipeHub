@@ -118,3 +118,81 @@ they are additional information specific to your application. They are called "p
 ```
 
 ---
+
+## AccessToken
+
+- An access token is a short-lived token that grants access to protected resources.
+
+- It is typically a JWT (JSON Web Token) that contains claims (e.g., user ID, roles, expiration time).
+
+- It is signed by the server to ensure its authenticity.
+
+### Key Characteristics Of AccessToken
+
+- **Short-Lived**: Expires after a short period (e.g., 15 minutes to 1 hour).
+
+- **Stateless**: Contains all the information needed to verify the user’s identity and permissions.
+
+- **Bearer Token**: The client includes it in the Authorization header of HTTP requests to access protected resources.
+
+### How AccessToken Works
+
+1. The user logs in, and the server generates an access token.
+
+2. The client stores the access token (e.g., in memory or local storage).
+
+3. The client includes the access token in the Authorization header of each request:
+
+```http
+GET /api/protected-resource
+Authorization: Bearer <access-token>
+```
+
+4. The server validates the access token and grants access to the requested resource.
+
+## Refresh Token
+
+- A refresh token is a long-lived token used to obtain a new access token when the current one expires.
+
+- It is stored securely (e.g., in an HTTP-only cookie or a secure database) and is not sent with every request.
+
+- It is used to maintain a user’s session without requiring them to log in again.
+
+### Key Characteristics Of Refresh Token
+
+Long-Lived: Expires after a longer period (e.g., 7 days to 30 days).
+
+Secure: Stored securely and not exposed to the client-side JavaScript.
+
+Single Use: Typically invalidated after being used to generate a new access token.
+
+### How Refresh Token Works
+
+1. The user logs in, and the server generates both an access token and a refresh token.
+
+2. The client stores the access token (e.g., in memory or local storage) and the refresh token (e.g., in an HTTP-only cookie).
+
+3. When the access token expires, the client sends the refresh token to the server to request a new access token:
+
+```http
+POST /api/refresh-token
+Cookie: refresh-token=<refresh-token>
+```
+
+4. The server validates the refresh token and issues a new access token.
+
+##  Why Use Both Access Tokens and Refresh Tokens?
+
+Using both tokens provides a balance between **security** and user **experience**:
+
+### Security
+
+- **Short-Lived Access Tokens**: If an access token is compromised, it is only valid for a short time.
+
+- **Secure Refresh Tokens**: Refresh tokens are stored securely and are not exposed to the client-side JavaScript, reducing the risk of theft.
+
+### User Experience
+
+- **Seamless Session Management**: Users don’t need to log in repeatedly because the refresh token can be used to obtain new access tokens.
+
+- **Reduced Server Load**: The server doesn’t need to validate long-lived tokens with every request.
