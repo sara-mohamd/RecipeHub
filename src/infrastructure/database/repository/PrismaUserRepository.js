@@ -1,6 +1,6 @@
+const PasswordHasher = require('../../../domain/utils/PasswordHasher');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const bcrypt = require('bcrypt');
 
 class PrismaUserRepository {
   async loginUser() { }
@@ -10,12 +10,13 @@ class PrismaUserRepository {
       data: {
         username: userData.username,
         email: userData.email,
-        password: await bcrypt.hash(userData.password, 10)
+        password: await PasswordHasher.hashPassword(userData.password)
       }
     })
   }
 
   async getUserByUsername(username) { return await prisma.user.findUnique({ where: { username } }); }
+  // (update) : delete according to autherization !!
   async deleteUser(username) { return await prisma.user.delete({ where: { username } }); }
 }
 
