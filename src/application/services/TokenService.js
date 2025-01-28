@@ -24,8 +24,10 @@ class tokenService {
     // Using refresh token to implement it
   }
   async invalidateToken(token) {
-    if token.expiresIn < new Date();
+    if (refreshToken.expiresIn < new Date())
       throw new Error('Access denied');
     // return { message: 'Token invalidated' };
   }
 }
+
+module.exports = tokenService;
