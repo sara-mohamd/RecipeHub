@@ -4,10 +4,9 @@ class ITokenService {
       throw new Error('ITokenService is an interface and cannot be instantiated.');
   }
 
-  async generateAccessToken(userID) { }
-  async generateRefreshToken(userID) { }
-  async validateAccessToken(token) { }
-  async validateRefreshToken(token) { }
+  async generateAccessToken(user) { }
+  async generateRefreshToken(user) { }
+  async validateToken(token) { }
   async refreshAccessToken(refreshToken) { }
   async invalidateToken(token) { }
 }
