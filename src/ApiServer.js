@@ -1,5 +1,6 @@
 const express = require('express');
 const UserRoutes = require('./presentation/routes/userRoutes');
+const AuthRoutes = require('./presentation/routes/auth');
 
 class ApiServer {
   constructor() {
@@ -14,6 +15,7 @@ class ApiServer {
 
   setupRoutes() {
     this.app.use('', UserRoutes);
+    this.app.use('', AuthRoutes)
   }
 
   start(port) {
