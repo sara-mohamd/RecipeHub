@@ -17,8 +17,8 @@ class GetUserByUsername {
     const user = userRepository.getUserByUsername(username);
     if (user === undefined)
       throw new Error('User not found');
-    // return user;
-    return new UserDTO(user);
+    return user;
+    // return new UserDTO(user);
   }
 }
 
