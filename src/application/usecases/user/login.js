@@ -15,8 +15,9 @@ class LoginUser {
       throw new Error('Username and Password are required');
 
     // Validate  both username and password
-    const user = this.userRepo.getUserByUsername(username);
-    if ((!user) || !(await comparePassword(password, user.password)))
+    const user = await this.userRepo.getUserByUsername(username);
+    const realPassword = await comparePassword(password, user.password);
+    if (!user || !realPassword)
       throw new Error(`Invalid Username or password`)
 
     return createJWT(user);
