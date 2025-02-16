@@ -8,13 +8,69 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  username String @unique
-  email String  @unique
-  password String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt // automaticlly save time updated at.
+  id                  Int      @id @default(autoincrement())
+  username            String   @unique
+  password            String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  recipes             UserFavouriteRecipe[]
+  ratings             Rating[]
 }
-// business logic || database access
 
+model Recipe {
+  id                  String @id @default(uuid())
+  name                String
+  description         String?
+  steps               String @default("not Added")
+  preprationTime      String?
+  CreatedAt           DateTime @default(now())
+  users UserFavouriteRecipe[]
+  ingredients         RecipeIngredient[]
+  ratings             Rating[]
+  categorise          RecipeCategory[]
+}
 
+model Ingredient {
+  id                 String @id @default(uuid())
+  name               String
+  quantity           String?
+  recipes            RecipeIngredient[]
+}
+
+model RecipeIngredient{
+  recipe            Recipe @relation(fields: [recipeId], references: [id])
+  recipeId          String
+  ingredient        Ingredient  @relation(fields: [ingredientId], references: [id])
+  ingredientId      String
+  @@id([recipeId, ingredientId])
+}
+
+model UserFavouriteRecipe {
+  user              User @relation(fields: [userId], references: [id])
+  userId            Int
+  recipe            Recipe @relation(fields: [recipeId], references: [id])
+  recipeId String
+  @@id([userId, recipeId])
+}
+
+model Category {
+  id                String @id @default(uuid())
+  name              String
+  recipes           RecipeCategory[]
+}
+
+model Rating {
+  id                String @id @default(uuid())
+  user              User  @relation(fields: [userId], references: [id])
+  userId            Int
+  recipe            Recipe  @relation(fields: [recipeId], references: [id])
+  recipeId          String
+}
+
+model RecipeCategory {
+  recipe            Recipe  @relation(fields: [recipeId], references: [id])
+  recipeId          String  
+  category          Category  @relation(fields: [categoryId], references: [id])
+  categoryId        String
+  @@id([recipeId, categoryId])
+}
