@@ -1,6 +1,7 @@
 const express = require('express');
-const UserRoutes = require('./presentation/routes/userRoutes');
-const AuthRoutes = require('./presentation/routes/auth');
+const AuthRoutes = require('./presentation/routes/router');
+const errorHandler = require('./presentation/middleware/errorHandler')
+const morgan = require('morgan')
 
 class ApiServer {
   constructor() {
@@ -14,8 +15,9 @@ class ApiServer {
   }
 
   setupRoutes() {
-    this.app.use('', UserRoutes);
-    this.app.use('', AuthRoutes)
+    this.app.use(morgan('dev'))
+    this.app.use('', AuthRoutes);
+    this.app.use(errorHandler);
   }
 
   start(port) {
