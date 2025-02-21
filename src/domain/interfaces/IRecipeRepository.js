@@ -6,7 +6,7 @@ class IRecipeRepository {
   }
 
   async getAllRecipes() { }
-  async getRecipe(id) { }
+  async getRecipe(name) { }
   async getAllRecipesWithRating() { }
   async getTopRatedRecipes(limit = 10) { }
   async createRecipe(data) { }

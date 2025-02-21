@@ -48,7 +48,7 @@ class PrismaRecipe {
   static async createRecipe(obj) {
     const { name, description, steps, preparationTime, ingredientIds, categoryIds } = obj;
     try {
-      const neewRecipe = await prisma.recipe.create({
+      const newRecipe = await prisma.recipe.create({
         data: {
           name: name,
           description: description,
@@ -66,6 +66,7 @@ class PrismaRecipe {
           category: true
         }
       })
+      return newRecipe;
     } catch (err) {
       console.log(`Error creating recipe: ${err}`);
     }
