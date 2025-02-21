@@ -19,11 +19,11 @@ model User {
 
 model Recipe {
   id                  String @id @default(uuid())
-  name                String
+  name                String  @unique
   description         String?
   steps               String @default("not Added")
-  preprationTime      String?
-  CreatedAt           DateTime @default(now())
+  preparationTime      String?
+  createdAt           DateTime @default(now())
   users UserFavouriteRecipe[]
   ingredients         RecipeIngredient[]
   ratings             Rating[]
@@ -32,7 +32,7 @@ model Recipe {
 
 model Ingredient {
   id                 String @id @default(uuid())
-  name               String
+  name               String @unique
   quantity           String?
   recipes            RecipeIngredient[]
 }
@@ -55,7 +55,7 @@ model UserFavouriteRecipe {
 
 model Category {
   id                String @id @default(uuid())
-  name              String
+  name              String  @unique
   recipes           RecipeCategory[]
 }
 
@@ -74,3 +74,9 @@ model RecipeCategory {
   categoryId        String
   @@id([recipeId, categoryId])
 }
+
+/*
+ * UserFavouriteRecipe
+ * RecipeCategory
+ * RecipeIngredient
+*/
