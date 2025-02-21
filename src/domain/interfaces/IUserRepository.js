@@ -1,4 +1,3 @@
-// # User repository interface
 class IUserRepository {
   constructor() {
     if (new.target === IUserRepository)
